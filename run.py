@@ -1,11 +1,11 @@
 import os # we'll have access to the environment variables
-from flask import Flask
+from flask import Flask, redirect
 
 app = Flask(__name__) # initialize Flask app
 messages = [] # create an empty list
 
 def add_messages(username, message):
-    """ It takes our user name and message and append it to the list """
+    """ It takes our user name and message and append it to the `messages` list """
     messages.append("{}: {}".format(username, message))
 
 # create app route decorator
@@ -17,12 +17,13 @@ def index():
 @app.route("/<username>")
 def user(username):
     """ Display chat messages """
-    return "Welcome {0}".format(username, messages)
+    return "Welcome {0} - {1}".format(username, messages)
 
 @app.route("/<username>/<message>")
 def send_message(username, message):
     """ Create a new message and redirect back to the chat page"""
-    return "{0}: {1}".format(username, message)
+    add_messages(username, message) # call new function
+    return redirect(username)
     
 # app.run
 app.run(host=os.getenv("IP"), port=int(os.getenv("PORT")), debug=True)
