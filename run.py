@@ -7,6 +7,10 @@ messages = [] # create an empty list
 def add_messages(username, message):
     """ It takes our user name and message and append it to the `messages` list """
     messages.append("{}: {}".format(username, message))
+    
+def get_all_messages():
+    """Get all of the messages and separate them with a `br`"""
+    return "<br>".join(messages)
 
 # create app route decorator
 @app.route("/")
@@ -17,7 +21,7 @@ def index():
 @app.route("/<username>")
 def user(username):
     """ Display chat messages """
-    return "Welcome {0} - {1}".format(username, messages)
+    return "Welcome {0} - {1}".format(username, get_all_messages())
 
 @app.route("/<username>/<message>")
 def send_message(username, message):
