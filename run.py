@@ -1,12 +1,14 @@
-import os # we'll have access to the environment variables
+import os
+from datetime import datetime # add datetime module
 from flask import Flask, redirect
 
 app = Flask(__name__) # initialize Flask app
 messages = [] # create an empty list
 
 def add_messages(username, message):
-    """ It takes our user name and message and append it to the `messages` list """
-    messages.append("{}: {}".format(username, message))
+    """Add messages to the `messages` list"""
+    now = datetime.now().strftime("%H:%M:%S")
+    messages.append("({}) {}: {}".format(now, username, message))
     
 def get_all_messages():
     """Get all of the messages and separate them with a `br`"""
