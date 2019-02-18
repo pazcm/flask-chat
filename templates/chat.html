@@ -8,7 +8,10 @@
 </head>
 <body>
     <h1>Welcome, {{ username }}</h1>
-    {{ chat_messages }}
+    
+    {% for message in chat_messages %}
+        <p>({{ message.timestamp }}) {{ message.from }}: {{ message.message }}</p>
+    {% endfor %}
     
 </body>
 </html>
